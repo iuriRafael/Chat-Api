@@ -1,4 +1,4 @@
-const db = require("./db");
+const db = require("./db.js");
 function listarSalas(){
     return db.findAll("salas");
 }
@@ -12,7 +12,7 @@ function listarSalas(){
                 "$oid": "756463hhfh4858"
             },
 
-            "nome": "Iuri Kannneman Pitbull",
+            "nome": "Valentina ",
             "tipo": "publica"
         },
         
@@ -21,7 +21,7 @@ function listarSalas(){
                 "$oid": "796895804hfnm,"
             },
 
-            "nome": "Iuri Kannneman Pitbull",
+            "nome": "Iuri Lindo",
             "tipo": "privada",
             "chave": "at8q4haw"
         },
