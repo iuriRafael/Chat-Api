@@ -91,6 +91,7 @@ app.use("/sala/mensagens/", router.get("/sala/mensagens", async (req, res) => {
   let resp= await salaController.buscarMensagens(req.query.idSala, req.query.timestamp);
   res.status(200).send(resp);
 }))
+//iuri
 
 app.use("/sala/sair/", router.put("/sala/sair", async (req, res) => {
 	if(!token.checkToken(req.headers.token,req.headers.iduser,req.headers.nick)) return false;
