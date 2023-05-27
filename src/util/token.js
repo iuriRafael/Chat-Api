@@ -1,12 +1,21 @@
 const jwt = require('jsonwebtoken');
 
-const checktoken = async (token, id, key) => jwt.verify(token, key, (err, decoded)=> {
+const { promisify } = require('util');
+
+const verifyToken = promisify(jwt.verify);
+
+const checkToken = async (token, id, key) => {
+  try {
+    const decoded = await verifyToken(token, key);
     if (decoded.id === id) {
-        return true; // token e id são válidos
-      } else {
-        return false; // id não corresponde ao do token
-      }
-});
+      return true; // token e id são válidos
+    } else {
+      return false; // id não corresponde ao do token
+    }
+  } catch (err) {
+    return false; // erro na verificação do token
+  }
+};
 
 const setToken = async (id, key) => {
     console.log(id);
@@ -17,6 +26,6 @@ const setToken = async (id, key) => {
 };
 
 module.exports = {
-    checktoken,
+    checkToken,
     setToken
 };
