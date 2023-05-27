@@ -34,4 +34,44 @@ exports.criarSala = async (nome, tipo) => {
   return novaSala;
 }
 
+exports.enviarMensagem= async (nick, msg, idsala)=>{
+  const sala = await salaModel.buscarSala(idsala);
+    if(!sala.msgs){
+    sala.msgs=[];
+  }
+  timestamp=Date.now()
+  sala.msgs.push(
+    {
+      timestamp:timestamp,
+      msg:msg,
+      nick:nick
+    }
+  )
+  let resp = await salaModel.atualizarMensagens(sala);
+  return {"msg":"OK", "timestamp":timestamp};
+}
+
+exports.buscarMensagens = async (idsala, timestamp)=>{
+  let mensagens=await salaModel.buscarMensagens(idsala, timestamp);
+  return {
+    "timestamp":mensagens[mensagens.length - 1].timestamp,
+    "msgs":mensagens
+  };
+}  
+
+
+exports.sairSala= async (idsala, iduser)=>{
+	let user= await usuarioModel.buscarUsuario(iduser);
+	let resp= await this.enviarMensagem(user.nick, "Sai da sala!",idsala);
+	delete user.sala;
+	console.log(user);
+	if(await usuarioModel.alterarUsuario(user)){
+		user= await usuarioModel.buscarUsuario(iduser);
+		console.log(user);
+		return {msg:"OK", timestamp:timestamp=Date.now()};
+	}
+	
+	return false;
+}
+
 

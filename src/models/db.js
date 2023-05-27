@@ -38,7 +38,10 @@ let updateOne= async (collection, object, param)=>{
 	return result;
 }
 
+let deleteOne= async (collection, object)=>{
+
+}
 
   
 
-module.exports={findAll, insertOne, findOne,updateOne }
+module.exports={findAll, insertOne, findOne,updateOne, deleteOne }
